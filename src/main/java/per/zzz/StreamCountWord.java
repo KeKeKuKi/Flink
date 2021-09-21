@@ -46,7 +46,7 @@ public class StreamCountWord {
                     }
                 })
                 .keyBy(0)
-                .sum(1);
+                .sum(1).setParallelism(2); // 设置sum任务并行度为 2
 
         // 4.输出 注：输出x> x代表分区编号
         sum.print();
