@@ -5,6 +5,7 @@ import org.apache.flink.api.common.functions.FlatMapFunction;
 import org.apache.flink.api.java.ExecutionEnvironment;
 import org.apache.flink.api.java.operators.DataSource;
 import org.apache.flink.api.java.tuple.Tuple2;
+import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
 import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
@@ -22,8 +23,16 @@ public class StreamCountWord {
 
         // 从服务器文本流 读取 socket 数据
         // yum install netcat 下载NC
-        // nc -lk 7777 启动监听
-        DataStreamSource<String> streamSource = env.socketTextStream("121.37.67.53", 7777);
+        // nc -lk 7777 启动7777端口监听
+//        DataStreamSource<String> streamSource = env.socketTextStream("121.37.67.53", 7777);
+
+
+        // 配置参数化 启动配置 --host 121.37.67.53 --port 7777
+        ParameterTool parameterTool = ParameterTool.fromArgs(args);
+        String host = parameterTool.get("host");
+        int port = parameterTool.getInt("port");
+
+        DataStreamSource<String> streamSource = env.socketTextStream(host, port);
 
 
         // 3.基于数据流进行转换计算
