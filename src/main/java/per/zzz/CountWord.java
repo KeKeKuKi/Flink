@@ -9,7 +9,7 @@ import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.util.Collector;
 
 // 进行单词统计的任务
-public class HelloCountWord {
+public class CountWord {
     public static void main(String[] args) throws Exception {
         // 1.创建执行环境
         ExecutionEnvironment env = ExecutionEnvironment.getExecutionEnvironment();
@@ -38,7 +38,5 @@ public class HelloCountWord {
 
         // 4.打印
         sum.print();
-
-
     }
 }
